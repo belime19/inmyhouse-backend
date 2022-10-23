@@ -20,7 +20,7 @@ public class SignupRequest {
 
     @NotBlank
     @Size(min = 6, max = 40)
-    private String motDePAas;
+    private String motDePass;
 
     private String numero;
 
@@ -49,15 +49,15 @@ public class SignupRequest {
     }
 
     public String getMotDePass() {
-        return motDePAas;
+        return motDePass;
     }
 
     public String getNumero() {
         return numero;
     }
 
-    public void setMotDePAas(String motDePAas) {
-        this.motDePAas = motDePAas;
+    public void setMotDePAas(String motDePass) {
+        this.motDePass = motDePass;
     }
 
     public void setNumero(String numero) {
