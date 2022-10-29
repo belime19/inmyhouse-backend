@@ -1,4 +1,4 @@
-package com.goldenCollar.InMyHouse.dao.response;
+package com.goldenCollar.InMyHouse.dto.response;
 
 public class MessageResponse {
     private String message;

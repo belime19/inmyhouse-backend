@@ -1,9 +1,9 @@
 package com.goldenCollar.InMyHouse.controller;
 
-import com.goldenCollar.InMyHouse.dao.request.LoginRequest;
-import com.goldenCollar.InMyHouse.dao.request.SignupRequest;
-import com.goldenCollar.InMyHouse.dao.response.MessageResponse;
-import com.goldenCollar.InMyHouse.dao.response.UserInfoResponse;
+import com.goldenCollar.InMyHouse.dto.request.LoginRequest;
+import com.goldenCollar.InMyHouse.dto.request.SignupRequest;
+import com.goldenCollar.InMyHouse.dto.response.MessageResponse;
+import com.goldenCollar.InMyHouse.dto.response.UserInfoResponse;
 import com.goldenCollar.InMyHouse.model.Role;
 import com.goldenCollar.InMyHouse.model.RoleUtilisateur;
 import com.goldenCollar.InMyHouse.model.Utilisateur;
@@ -53,18 +53,22 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        String jwt = jwtUtils.generateTokenFromUsername(userDetails.getUsername());
 
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+        return ResponseEntity.ok()
+                .header("Access-Control-Allow-Headers", "Authorization, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+                        "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
                 .body(new UserInfoResponse(userDetails.getId(),
                         userDetails.getUsername().split("\\.")[0],
                         userDetails.getUsername().split("\\.")[1],
                         userDetails.getEmail(),
-                        roles));
+                        roles,
+                        jwt));
     }
 
     @PostMapping("/signup")
@@ -104,7 +108,10 @@ public class AuthController {
         utilisateur.setRoles(roles);
         utilisateurService.addUtilisateur(utilisateur);
 
-        return ResponseEntity.ok(new MessageResponse("Utilisateur enregistré avec succès !"));
+        return ResponseEntity.ok()
+                .header("Access-Control-Allow-Headers", "Authorization, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+                "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+                .body(new MessageResponse("Utilisateur enregistré avec succès !"));
     }
 
     @PostMapping("/signout")

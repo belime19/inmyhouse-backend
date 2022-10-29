@@ -1,7 +1,8 @@
 package com.goldenCollar.InMyHouse.service;
 
+import com.goldenCollar.InMyHouse.dto.ProprieteDto;
+import com.goldenCollar.InMyHouse.mapper.ProprieteMapper;
 import com.goldenCollar.InMyHouse.model.Propriete;
-import com.goldenCollar.InMyHouse.model.Utilisateur;
 import com.goldenCollar.InMyHouse.repositories.ProprieteRepository;
 import com.goldenCollar.InMyHouse.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,25 @@ public class ProprieteService {
     @Autowired
     ProprieteRepository proprieteRepository;
 
-    public Propriete getPropriete(Long id) {
+    @Autowired
+    UtilisateurRepository utilisateurRepository;
 
-        return proprieteRepository.findById(id).get();
+    @Autowired
+    ProprieteMapper proprieteMapper;
+
+    public ProprieteDto getPropriete(Long id) {
+
+        Propriete propriete =  proprieteRepository.findById(id).orElseThrow();
+        return proprieteMapper.entityToDto(propriete);
     }
 
-    public  void apdatePropriete(Long id, Propriete propriete) {
+    public  void updatePropriete(Long id, ProprieteDto propriete) {
     }
     public void deletePropriete(Long id) {
         proprieteRepository.deleteById(id);
     }
-    public void addPropriete(Propriete propriete) {
-        proprieteRepository.save(propriete);
+    public void addPropriete(ProprieteDto propriete) {
+        proprieteRepository.save(proprieteMapper.dtoToEntity(propriete));
     }
 
 

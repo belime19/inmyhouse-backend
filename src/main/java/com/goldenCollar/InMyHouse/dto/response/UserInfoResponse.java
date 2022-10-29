@@ -1,4 +1,4 @@
-package com.goldenCollar.InMyHouse.dao.response;
+package com.goldenCollar.InMyHouse.dto.response;
 
 import java.util.List;
 
@@ -9,14 +9,17 @@ public class UserInfoResponse {
 
     private String prenom;
     private String email;
+
+    private String accessToken;
     private List<String> roles;
 
-    public UserInfoResponse(Long id, String nom, String prenom, String email, List<String> roles) {
+    public UserInfoResponse(Long id, String nom, String prenom, String email, List<String> roles, String accessToken) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.roles = roles;
+        this.accessToken = accessToken;
     }
 
     public Long getId() {
@@ -57,5 +60,13 @@ public class UserInfoResponse {
 
     public List<String> getRoles() {
         return roles;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

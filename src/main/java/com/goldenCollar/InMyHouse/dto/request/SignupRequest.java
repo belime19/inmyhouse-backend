@@ -1,4 +1,4 @@
-package com.goldenCollar.InMyHouse.dao.request;
+package com.goldenCollar.InMyHouse.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +19,6 @@ public class SignupRequest {
     private Set<String> roles;
 
     @NotBlank
-    @Size(min = 6, max = 40)
     private String motDePass;
 
     private String numero;

@@ -1,4 +1,4 @@
-package com.goldenCollar.InMyHouse.dao.request;
+package com.goldenCollar.InMyHouse.dto.request;
 
 import javax.validation.constraints.NotBlank;
 
