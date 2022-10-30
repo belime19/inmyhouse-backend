@@ -1,15 +1,18 @@
 package com.goldenCollar.InMyHouse.dto;
-import com.goldenCollar.InMyHouse.model.Adresse;
 import com.goldenCollar.InMyHouse.model.TypePropriete;
 
 
 public class ProprieteDto {
 
+    private long idPropriete;
     private TypePropriete typePropriete ;
 
     private String emailProprietaire ;
 
-    private Adresse adresse;
+    private String ville;
+
+    private String pays;
+    private String adresse;
 
     private double surface;
 
@@ -26,8 +29,22 @@ public class ProprieteDto {
     public ProprieteDto() {
     }
 
-    public ProprieteDto(TypePropriete typePropriete, String emailProprietaire, Adresse adresse, double surface, double prixUnitaire, String titre, String description, int etoiles, String image) {
+    public ProprieteDto(long idPropriete,
+                        TypePropriete typePropriete,
+                        String emailProprietaire,
+                        String ville,
+                        String pays,
+                        String adresse,
+                        double surface,
+                        double prixUnitaire,
+                        String titre,
+                        String description,
+                        int etoiles,
+                        String image) {
+        this.idPropriete = idPropriete;
         this.emailProprietaire = emailProprietaire;
+        this.ville = ville;
+        this.pays = pays;
         this.adresse = adresse;
         this.surface = surface;
         this.prixUnitaire = prixUnitaire;
@@ -42,8 +59,8 @@ public class ProprieteDto {
         return emailProprietaire;
     }
 
-    public Adresse getAdresse() {
-        return adresse;
+    public String getVille() {
+        return ville;
     }
 
     public double getSurface() {
@@ -74,8 +91,8 @@ public class ProprieteDto {
         this.emailProprietaire = emailProprietaire;
     }
 
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
     public void setSurface(double surface) {
@@ -108,5 +125,29 @@ public class ProprieteDto {
 
     public void setTypePropriete(TypePropriete typePropriete) {
         this.typePropriete = typePropriete;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public long getIdPropriete() {
+        return idPropriete;
+    }
+
+    public void setIdPropriete(long idPropriete) {
+        this.idPropriete = idPropriete;
     }
 }

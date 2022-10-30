@@ -8,6 +8,10 @@ import com.goldenCollar.InMyHouse.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProprieteService {
 
@@ -36,4 +40,33 @@ public class ProprieteService {
     }
 
 
+    public List<ProprieteDto> searchProprietes(String ville, LocalDate startDate, LocalDate endDate) {
+        List<Propriete>  proprietesInVille =  proprieteRepository.findAllByVilleIgnoreCase(ville);
+        return proprietesInVille.stream().filter(propriete ->
+            propriete.getReservations().stream()
+                    .noneMatch(reservation -> reservation.getDateDebut().isAfter(startDate)
+                                            && reservation.getDateDebut().isBefore(endDate)
+                                            ||
+                                            reservation.getDateFin().isAfter(startDate)
+                                            && reservation.getDateFin().isBefore(endDate)
+                                            ||
+                                            startDate.isAfter(reservation.getDateDebut())
+                                                    && startDate.isBefore(reservation.getDateFin())
+                                            ||
+                                            endDate.isAfter(reservation.getDateDebut())
+                                                    && endDate.isBefore(reservation.getDateFin())
+                                            ||
+                                            reservation.getDateDebut().isEqual(startDate)
+                                            ||
+                                            reservation.getDateFin().isEqual(startDate)
+                                            ||
+                                            reservation.getDateDebut().isEqual(endDate)
+                                            ||
+                                            reservation.getDateFin().isEqual(endDate)
+                            )
+        )
+        .map(proprieteMapper::entityToDto)
+        .collect(Collectors.toList());
+
+    }
 }

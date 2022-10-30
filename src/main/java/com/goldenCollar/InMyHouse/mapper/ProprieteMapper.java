@@ -22,6 +22,8 @@ public class ProprieteMapper implements EntityDtoMapper<Propriete, ProprieteDto>
                 dto.getTypePropriete(),
                 proprietaire,
                 Collections.emptySet(),
+                dto.getVille(),
+                dto.getPays(),
                 dto.getAdresse(),
                 dto.getSurface(),
                 dto.getPrixUnitaire(),
@@ -35,8 +37,11 @@ public class ProprieteMapper implements EntityDtoMapper<Propriete, ProprieteDto>
     @Override
     public ProprieteDto entityToDto(Propriete entity) {
         return new ProprieteDto(
+                entity.getIdPrpreite(),
                 entity.getTypePropriete(),
                 entity.getProprietaire().getEmail(),
+                entity.getVille(),
+                entity.getPays(),
                 entity.getAdresse(),
                 entity.getSurface(),
                 entity.getPrixUnitaire(),

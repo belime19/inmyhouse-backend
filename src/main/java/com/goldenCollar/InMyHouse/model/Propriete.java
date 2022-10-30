@@ -16,7 +16,7 @@ public class Propriete {
     private Long idPrpreite;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Type")
+    @Column(name = "TYPE")
     TypePropriete typePropriete;
 
     @JsonIgnore
@@ -28,8 +28,13 @@ public class Propriete {
     @OneToMany(mappedBy = "propriete")
     private Set<Reservation> reservations =new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Adresse adresse;
+    @Column(name = "VILLE")
+    private String ville;
+
+    @Column(name = "PAYS")
+    private String pays;
+    @Column(name = "ADRESSE")
+    private String adresse;
     @Column(name = "SURFACE")
     private double surface;
 
@@ -51,9 +56,22 @@ public class Propriete {
     public Propriete() {
     }
 
-    public Propriete(TypePropriete typePropriete, Utilisateur proprietaire, Set<Reservation> reservations, Adresse adresse, double surface, double prixUnitaire, String titre, String description, int etoiles, String image) {
+    public Propriete(TypePropriete typePropriete,
+                     Utilisateur proprietaire,
+                     Set<Reservation> reservations,
+                     String ville,
+                     String pays,
+                     String adresse,
+                     double surface,
+                     double prixUnitaire,
+                     String titre,
+                     String description,
+                     int etoiles,
+                     String image) {
         this.proprietaire = proprietaire;
         this.reservations = reservations;
+        this.ville = ville;
+        this.pays = pays;
         this.adresse = adresse;
         this.surface = surface;
         this.prixUnitaire = prixUnitaire;
@@ -80,12 +98,12 @@ public class Propriete {
         this.proprietaire = proprietaire;
     }
 
-    public Adresse getAdresse() {
-        return adresse;
+    public String getVille() {
+        return ville;
     }
 
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
     public double getSurface() {
@@ -97,9 +115,6 @@ public class Propriete {
     }
 
 
-    public Set<Reservation> getReservation() {
-        return reservations;
-    }
 
     public void setReservation(Set<Reservation> reservations) {
         this.reservations = reservations;
@@ -160,5 +175,21 @@ public class Propriete {
 
     public void setTypePropriete(TypePropriete typePropriete) {
         this.typePropriete = typePropriete;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 }

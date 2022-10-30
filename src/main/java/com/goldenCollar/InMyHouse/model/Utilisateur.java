@@ -22,8 +22,6 @@ public class Utilisateur {
     private String email;
     @Column(name = "MOT_DE_PASS")
     private String motDePass;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Adresse adresse;
     @Column(name = "NUMERO")
     private String numero;
     @JsonIgnore
@@ -32,12 +30,6 @@ public class Utilisateur {
     @JsonIgnore
     @OneToMany(mappedBy = "proprietaire")
     private Set<Propriete> proprietes =new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "UTILISATEUR_ROLE",
-            joinColumns = @JoinColumn(name = "ID_UTILISATEUR"),
-            inverseJoinColumns = @JoinColumn(name = "ID_ROLE"))
-    private Set<Role> roles = new HashSet<>();
 
     public Utilisateur() {
     }
@@ -90,15 +82,6 @@ public class Utilisateur {
         this.email = email;
     }
 
-
-    public Adresse getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
-    }
-
     public String getNumero() {
         return numero;
     }
@@ -113,14 +96,6 @@ public class Utilisateur {
 
     public void setReservation(Set<Reservation> reservation) {
         this.reservation = reservation;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     public Set<Propriete> getPropriete() {
