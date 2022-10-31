@@ -26,7 +26,9 @@ public class ProprieteService {
 
     public ProprieteDto getPropriete(Long id) {
 
-        Propriete propriete =  proprieteRepository.findById(id).orElseThrow();
+        Propriete propriete =  proprieteRepository.findById(id).orElseThrow(() -> {
+            return new RuntimeException("Property not found : "+ id);
+        });
         return proprieteMapper.entityToDto(propriete);
     }
 

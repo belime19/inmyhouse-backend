@@ -17,7 +17,9 @@ public class ProprieteMapper implements EntityDtoMapper<Propriete, ProprieteDto>
 
     @Override
     public Propriete dtoToEntity(ProprieteDto dto) {
-        Utilisateur proprietaire = utilisateurRepository.findByEmail(dto.getEmailProprietaire()).orElseThrow();
+        Utilisateur proprietaire = utilisateurRepository.findByEmail(dto.getEmailProprietaire()).orElseThrow(() -> {
+            return new RuntimeException("User not found" + dto.getEmailProprietaire());
+        });
         return new Propriete(
                 dto.getTypePropriete(),
                 proprietaire,

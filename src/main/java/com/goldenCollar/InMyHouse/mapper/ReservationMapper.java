@@ -23,8 +23,12 @@ public class ReservationMapper implements EntityDtoMapper<Reservation, Reservati
 
     @Override
     public Reservation dtoToEntity(ReservationDto dto) {
-        Utilisateur locataire = utilisateurRepository.findByEmail(dto.getEmailLocataire()).orElseThrow();
-        Propriete propriete = proprieteRepository.findById(dto.getIdPropriete()).orElseThrow();
+        Utilisateur locataire = utilisateurRepository.findByEmail(dto.getEmailLocataire()).orElseThrow(() ->{
+            return new RuntimeException("User not found "+dto.getEmailLocataire());
+        });
+        Propriete propriete = proprieteRepository.findById(dto.getIdPropriete()).orElseThrow(() -> {
+            return new RuntimeException("Property not found : "+ dto.getIdPropriete());
+        });
         return new Reservation(
                locataire,
                 propriete,
